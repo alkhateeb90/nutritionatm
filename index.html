@@ -651,31 +651,33 @@ Lock In Your Machine
 <p class="text-gray-400">Complete this form. We will review and respond within 24 hours. No obligation.</p>
 </div>
 <div class="glass-card rounded-2xl p-8 lg:p-10 scroll-reveal">
-<form onsubmit="event.preventDefault(); handleSubmit();" class="space-y-5">
+<form action="https://formspree.io/f/xnqkvpzy" method="POST" class="space-y-5">
+<input type="hidden" name="_subject" value="New Nutrition ATM Application">
+<input type="hidden" name="_next" value="https://www.nutritionatm.com/?submitted=true">
 <div class="grid md:grid-cols-2 gap-5">
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Your Name *</label>
-<input type="text" required placeholder="John Smith" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
+<input type="text" name="name" required placeholder="John Smith" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
 </div>
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Gym Name *</label>
-<input type="text" required placeholder="Iron Paradise Gym" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
+<input type="text" name="gym_name" required placeholder="Iron Paradise Gym" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
 </div>
 </div>
 <div class="grid md:grid-cols-2 gap-5">
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Email *</label>
-<input type="email" required placeholder="john@yourgym.co.uk" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
+<input type="email" name="email" required placeholder="john@yourgym.co.uk" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
 </div>
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Phone *</label>
-<input type="tel" required placeholder="+44 7700 900000" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
+<input type="tel" name="phone" required placeholder="+44 7700 900000" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
 </div>
 </div>
 <div class="grid md:grid-cols-2 gap-5">
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Daily member visits? *</label>
-<select required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-natm-orange transition-colors text-sm appearance-none">
+<select name="daily_members" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-natm-orange transition-colors text-sm appearance-none">
 <option value="" class="bg-natm-charcoal">Select range</option>
 <option value="50-150" class="bg-natm-charcoal">50 - 150</option>
 <option value="150-300" class="bg-natm-charcoal">150 - 300</option>
@@ -685,7 +687,7 @@ Lock In Your Machine
 </div>
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Estimated daily sales? *</label>
-<select required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-natm-orange transition-colors text-sm appearance-none">
+<select name="estimated_sales" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-natm-orange transition-colors text-sm appearance-none">
 <option value="" class="bg-natm-charcoal">Select estimate</option>
 <option value="10-30" class="bg-natm-charcoal">10 - 30</option>
 <option value="30-60" class="bg-natm-charcoal">30 - 60 (Qualifies for trial)</option>
@@ -696,11 +698,11 @@ Lock In Your Machine
 </div>
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Gym Location *</label>
-<input type="text" required placeholder="London, Manchester, Birmingham..." class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
+<input type="text" name="location" required placeholder="London, Manchester, Birmingham..." class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors text-sm">
 </div>
 <div>
 <label class="text-sm font-medium text-gray-300 mb-2 block">Anything else we should know?</label>
-<textarea rows="3" placeholder="Current supplement sales, member demographics, etc." class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors resize-none text-sm"></textarea>
+<textarea name="message" rows="3" placeholder="Current supplement sales, member demographics, etc." class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-natm-orange transition-colors resize-none text-sm"></textarea>
 </div>
 <div class="flex items-start gap-3">
 <input type="checkbox" required id="terms" class="w-4 h-4 rounded border-white/20 bg-white/5 text-natm-orange mt-1">
@@ -789,16 +791,8 @@ function updateCalculator() {
     document.getElementById('bull-monthly').textContent = '£' + bull.toLocaleString();
 }
 
-function handleSubmit() {
-    const btn = document.querySelector('button[type="submit"]');
-    btn.textContent = 'Application Submitted!';
-    btn.style.background = 'linear-gradient(135deg, #059669, #047857)';
-    setTimeout(() => {
-        alert('Thank you! Your application has been received. We will review it and contact you within 24 hours.');
-        btn.textContent = 'Submit Application';
-        btn.style.background = '';
-    }, 500);
-}
+// Formspree handles form submission automatically
+// The _next parameter redirects to homepage with ?submitted=true
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
