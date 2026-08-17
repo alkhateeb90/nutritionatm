@@ -91,11 +91,11 @@ input[type="range"]::-moz-range-thumb {
 <!-- 1 · HEADLINE: their problem, not our solution -->
 <section class="text-center pt-10 pb-10">
 <h1 class="font-display font-semibold text-3xl sm:text-4xl lg:text-[2.75rem] leading-tight">
-Fresh shakes for your members. <span class="gradient-text">Zero extra labour for you.</span>
+Fresh shakes for your members. <span class="gradient-text">90% less labour for you.</span>
 </h1>
 <p class="text-gray-400 mt-5 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
 Gym bars mean peak-time queues and staffing costs, or no protein offering at all.
-A NutritionATM machine inside your gym serves 9 fresh-made drinks on demand, 24/7, with no staff needed, and pays you a share of every sale.
+A NutritionATM machine inside your gym serves 9 fresh-made drinks on demand, 24/7, with 90% less labour than a staffed bar, and pays you a share of every sale.
 </p>
 </section>
 
@@ -122,19 +122,19 @@ A NutritionATM machine inside your gym serves 9 fresh-made drinks on demand, 24/
 <div class="mt-8">
 <div class="flex justify-between items-baseline mb-3">
 <label for="members" class="text-sm font-medium text-gray-300">Members</label>
-<span id="members-value" class="font-display font-semibold text-lg text-white">600</span>
+<span id="members-value" class="font-display font-semibold text-lg text-white">1,200</span>
 </div>
-<input type="range" id="members" min="600" max="6000" step="50" value="600">
-<div class="flex justify-between text-xs text-gray-600 mt-1"><span>600</span><span>6,000</span></div>
+<input type="range" id="members" min="600" max="3000" step="50" value="1200">
+<div class="flex justify-between text-xs text-gray-600 mt-1"><span>600</span><span>3,000</span></div>
 </div>
 
 <div class="mt-6">
 <div class="flex justify-between items-baseline mb-3">
 <label for="purchase-rate" class="text-sm font-medium text-gray-300">Purchase rate</label>
-<span id="pr-value" class="font-display font-semibold text-lg text-white">12%</span>
+<span id="pr-value" class="font-display font-semibold text-lg text-white">6%</span>
 </div>
-<input type="range" id="purchase-rate" min="5" max="20" step="1" value="12">
-<div class="flex justify-between text-xs text-gray-600 mt-1"><span>5%</span><span>20%</span></div>
+<input type="range" id="purchase-rate" min="5" max="25" step="1" value="6">
+<div class="flex justify-between text-xs text-gray-600 mt-1"><span>5%</span><span>25%</span></div>
 <p class="text-xs text-gray-500 leading-relaxed mt-3 text-center">Based on our placement data. Adjust if you know your bar sales.</p>
 </div>
 
@@ -144,9 +144,10 @@ A NutritionATM machine inside your gym serves 9 fresh-made drinks on demand, 24/
 <div class="text-sm text-gray-300 mt-1">shakes per day at your gym</div>
 </div>
 <div class="text-sm text-gray-400 mb-1">Your gym could earn</div>
-<div id="earnings" class="earnings-number font-display font-bold text-5xl sm:text-6xl text-emerald-400">£1,836</div>
+<div id="earnings" class="earnings-number font-display font-bold text-5xl sm:text-6xl text-emerald-400">£1,199</div>
 <div class="text-sm text-gray-400 mt-1">per month, every month</div>
 <div id="earnings-detail" class="text-xs text-gray-600 mt-3">Based on 72 shakes/day at £4.25 blended average. Your share scales with volume, up to 20%.</div>
+<div class="text-xs text-gray-500 mt-2">Earnings scale with your member base. Facilities with 1,200+ members typically see £1,000+ per month.</div>
 </div>
 
 </section>
@@ -216,17 +217,17 @@ function updateCalculator() {
     const DAYS  = 30;
 
     // tiered share: scales with daily sales volume (exact tiers not shown on page)
-    function shareFor(shakes) {
-        if (shakes >= 50) return 0.20;
-        if (shakes >= 40) return 0.15;
-        if (shakes >= 30) return 0.10;
-        return 0.05;
+    // marginal tiers: 10% on shakes 21-30, 20% on everything above 30
+    function monthlyFor(shakes) {
+        const t1 = Math.min(Math.max(shakes - 20, 0), 10) * 0.10;
+        const t2 = Math.max(shakes - 30, 0) * 0.20;
+        return (t1 + t2) * PRICE * DAYS;
     }
 
     const members = parseInt(membersEl.value, 10);
     const pr = parseInt(prEl.value, 10);
     const shakes = Math.round(members * (pr / 100));
-    const monthly = shakes * PRICE * DAYS * shareFor(shakes);
+    const monthly = monthlyFor(shakes);
 
     document.getElementById('members-value').textContent = members.toLocaleString('en-GB');
     document.getElementById('pr-value').textContent = pr + '%';

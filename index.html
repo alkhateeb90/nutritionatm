@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NutritionATM | Fresh Shakes for Gyms. Zero Extra Labour.</title>
+<title>NutritionATM | Fresh Shakes for Gyms. 90% Less Labour.</title>
 <meta name="description" content="NutritionATM - the UK's smart nutrition vending machine for gyms. Zero upfront cost, 90-day free trial, and your gym earns up to 20% of every sale.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,11 +220,11 @@ input[type="range"]::-moz-range-thumb {
 
 <h1 class="font-display font-semibold text-5xl lg:text-6xl leading-[1.1] tracking-tight">
 Fresh Shakes for Your Members.<br/>
-<span class="gradient-text">Zero Extra Labour.</span>
+<span class="gradient-text">90% Less Labour.</span>
 </h1>
 
 <p class="text-lg text-gray-400 max-w-lg leading-relaxed">
-Gym bars mean peak-time queues and staffing costs or no protein offering at all. We install a smart machine inside your gym at zero cost: 9 fresh-made shakes and recovery drinks on demand, 24/7, no staff needed   and you earn a share of every sale, rising to 20%.
+Gym bars mean peak-time queues and staffing costs or no protein offering at all. We install a smart machine inside your gym at zero cost: 9 fresh-made shakes and recovery drinks on demand, 24/7, with 90% less labour than a staffed bar, and you earn a share of every sale, rising to 20% for busy sites.
 </p>
 
 <div class="flex flex-col sm:flex-row gap-4">
@@ -365,18 +365,18 @@ Book a 20-Minute Call
 <div>
 <div class="flex justify-between items-center mb-3">
 <label class="text-sm font-medium text-gray-300">Members</label>
-<span class="font-display font-semibold text-xl text-natm-orange" id="members-display">600</span>
+<span class="font-display font-semibold text-xl text-natm-orange" id="members-display">1,200</span>
 </div>
-<input type="range" min="600" max="6000" value="600" step="50" class="w-full" id="members-slider" oninput="updateCalculator()">
-<div class="flex justify-between mt-2 text-xs text-gray-500"><span>600</span><span>6,000</span></div>
+<input type="range" min="600" max="3000" value="1200" step="50" class="w-full" id="members-slider" oninput="updateCalculator()">
+<div class="flex justify-between mt-2 text-xs text-gray-500"><span>600</span><span>3,000</span></div>
 </div>
 <div class="mt-8 pt-6 border-t border-white/5">
 <div class="flex justify-between items-center mb-3">
 <label class="text-sm font-medium text-gray-300">Purchase rate</label>
-<span class="font-display font-semibold text-xl text-natm-orange" id="pr-display">12%</span>
+<span class="font-display font-semibold text-xl text-natm-orange" id="pr-display">6%</span>
 </div>
-<input type="range" min="5" max="20" value="12" step="1" class="w-full" id="pr-slider" oninput="updateCalculator()">
-<div class="flex justify-between mt-2 text-xs text-gray-500"><span>5%</span><span>20%</span></div>
+<input type="range" min="5" max="25" value="6" step="1" class="w-full" id="pr-slider" oninput="updateCalculator()">
+<div class="flex justify-between mt-2 text-xs text-gray-500"><span>5%</span><span>25%</span></div>
 <p class="text-xs text-gray-500 leading-relaxed mt-3">Based on our placement data adjust if you know your bar sales.</p>
 </div>
 </div>
@@ -390,10 +390,11 @@ Book a 20-Minute Call
 </div>
 <div class="mt-8 text-center">
 <div class="text-sm text-gray-400 mb-1">Your gym could earn</div>
-<div class="font-display font-bold text-5xl lg:text-6xl text-emerald-400" id="earnings-display">£1,836</div>
+<div class="font-display font-bold text-5xl lg:text-6xl text-emerald-400" id="earnings-display">£1,199</div>
 <div class="text-sm text-gray-400 mt-1">per month, every month</div>
 </div>
 <p class="text-xs text-gray-600 text-center mt-8" id="basis-line">Based on 72 shakes/day at £4.25 blended average. Your share scales with volume up to 20%.</p>
+<p class="text-xs text-gray-500 text-center mt-2">Earnings scale with your member base. Facilities with 1,200+ members typically see £1,000+ per month.</p>
 <div class="text-center mt-6">
 <a href="#book" class="btn-primary px-8 py-4 rounded-full text-base font-semibold text-white inline-flex items-center gap-2 justify-center">
 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -769,17 +770,17 @@ function updateCalculator() {
     const DAYS  = 30;
 
     // tiered share  scales with daily sales volume (exact tiers not shown on page)
-    function shareFor(shakes) {
-        if (shakes >= 50) return 0.20;
-        if (shakes >= 40) return 0.15;
-        if (shakes >= 30) return 0.10;
-        return 0.05;
+    // marginal tiers: 10% on shakes 21-30, 20% on everything above 30
+    function monthlyFor(shakes) {
+        const t1 = Math.min(Math.max(shakes - 20, 0), 10) * 0.10;
+        const t2 = Math.max(shakes - 30, 0) * 0.20;
+        return (t1 + t2) * PRICE * DAYS;
     }
 
     const members = parseInt(document.getElementById('members-slider').value);
     const pr = parseInt(document.getElementById('pr-slider').value);
     const shakes = Math.round(members * (pr / 100));
-    const monthly = Math.round(shakes * PRICE * DAYS * shareFor(shakes));
+    const monthly = Math.round(monthlyFor(shakes));
 
     document.getElementById('members-display').textContent = members.toLocaleString();
     document.getElementById('pr-display').textContent = pr + '%';
